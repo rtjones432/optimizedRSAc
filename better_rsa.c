@@ -26,15 +26,15 @@ void encrypt_block(mpz_t e, mpz_t m, mpz_t *c, mpz_t n) {
   }
 }
 
-void encrypt_str(mpz_t e, char *message, char *cipher_text, mpz_t n) {
+void encrypt_hex(mpz_t e, char *message, char *cipher_text, mpz_t n) {
   mpz_t m, c;
-  mpz_init_set_str(m, message, 36);
+  mpz_init_set_str(m, message, 16);
   mpz_init(c);
 
   encrypt_block(e, m, &c, n);
 
   mpz_clear(m);
-  mpz_get_str(cipher_text, 36, c);
+  mpz_get_str(cipher_text, 16, c);
   mpz_clear(c);
 }
 
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
   mpz_t e, n;
   char str[10] = "hi";
   char ct[10];
-  encrypt_str(e, str, ct, n);
+  encrypt_hex(e, str, ct, n);
   printf("ct: %s", ct);
   mpz_clear(e);
   mpz_clear(n);
