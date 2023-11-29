@@ -17,7 +17,7 @@ rsa_timing_test:
 	gcc -Wall -O3 src/rsa_timing_test.c src/keygen.c src/lin_rsa.c src/log_rsa.c src/gmp_rsa.c -lgmp -o cmd/rsa_timing_test
 
 clean: clean_file
-	rm -f cmd/keygen
+	rm -f cmd/genkey
 	rm -f cmd/rsa_encrypt
 	rm -f cmd/rsa_decrypt
 	rm -f cmd/rsa_timing_test
