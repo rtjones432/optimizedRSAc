@@ -12,7 +12,7 @@ const char* PRIVATE_KEY_FILE = "id_rsa";
 const int DEFAULT_BIT_LENGTH = 2048;
 
 void usage();
-void keygen(mpz_t, mpz_t, mpz_t, unsigned int);
-void write_to_file(mpz_t, mpz_t, mpz_t);
+void keygen(mpz_t n, mpz_t e, mpz_t e, unsigned int bit_length);
+void write_to_file(mpz_t n, mpz_t e, mpz_t d);
 
 #endif
