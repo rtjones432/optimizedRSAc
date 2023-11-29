@@ -7,7 +7,7 @@ void usage() {
 	exit(0);
 }
 
-void write_to_file(mpz_t e, mpz_t d, mpz_t n) {
+void write_to_file(mpz_t n, mpz_t e, mpz_t d) {
     FILE *fptr;
     fptr = fopen(PUBLIC_KEY_FILE, "w");
     mpz_out_str(fptr, 16, e);
@@ -22,26 +22,10 @@ void write_to_file(mpz_t e, mpz_t d, mpz_t n) {
     fclose(fptr);
 }
 
-int main(int argc, char *argv[]) {
-    unsigned long bit_length = DEFAULT_BIT_LENGTH;
-
-    int op;
-    while ((op = getopt(argc, argv, "l:")) != -1) {
-        switch (op) {
-            case 'l':
-                bit_length = atoi(optarg);
-                break;
-            default:
-                usage();
-        }
-    }
-
-    mpz_t p, q, n, e, d, r;
+void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int bit_length) {
+    mpz_t p, q, r;
     mpz_init(p);
     mpz_init(q);
-    mpz_init(n);
-    mpz_init(e);
-    mpz_init(d);
     mpz_init(r);
 
     gmp_randstate_t state;
@@ -67,8 +51,30 @@ int main(int argc, char *argv[]) {
 
     mpz_mul(r, p, q);
     mpz_invert(d, e, r);
+}
 
-    write_to_file(e, d, n);
+int main(int argc, char *argv[]) {
+    unsigned long bit_length = DEFAULT_BIT_LENGTH;
+
+    int op = 0;
+    while ((op = getopt(argc, argv, "l:")) != -1) {
+        switch (op) {
+            case 'l':
+                bit_length = atoi(optarg);
+                break;
+            default:
+                usage();
+        }
+    }
+
+    mpz_t n, e, d;
+    mpz_init(n);
+    mpz_init(e);
+    mpz_init(d);
+
+    keygen(n, e, d, bit_length);
+
+    write_to_file(n, e, d);
     printf("[!] Done.\n");
 
     return 0;
