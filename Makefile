@@ -2,7 +2,7 @@ all: keygen rsa_encrypt rsa_decrypt rsa_timing_test
 
 keygen:
 	mkdir -p cmd
-	gcc -Wall -O3 src/keygen.c -lgmp -o cmd/keygen
+	gcc -Wall -O3 src/genkey.c src/keygen.c -lgmp -o cmd/genkey
 
 rsa_encrypt:
 	mkdir -p cmd
@@ -14,7 +14,7 @@ rsa_decrypt:
 
 rsa_timing_test:
 	mkdir -p cmd
-	gcc -Wall -O3 src/rsa_timing_test.c -lgmp -o cmd/rsa_timing_test
+	gcc -Wall -O3 src/rsa_timing_test.c src/keygen.c src/lin_rsa.c src/log_rsa.c src/gmp_rsa.c -lgmp -o cmd/rsa_timing_test
 
 clean: clean_file
 	rm -f cmd/keygen
