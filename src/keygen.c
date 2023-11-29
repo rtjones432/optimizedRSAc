@@ -73,8 +73,8 @@ int main(int argc, char *argv[]) {
     mpz_init(d);
 
     keygen(n, e, d, bit_length);
-
     write_to_file(n, e, d);
+
     printf("[!] Done.\n");
 
     return 0;

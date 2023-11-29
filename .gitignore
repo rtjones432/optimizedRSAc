@@ -1,10 +1,9 @@
 .vscode/
 .DS_Store
 *.dSYM/
-generator
 id_rsa.pub
 id_rsa
-keygen
 a.out
 keys/*
 cmd/*
+!.gitkeep

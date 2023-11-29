@@ -25,6 +25,5 @@ unsigned long fast_mod(unsigned long, unsigned long, unsigned long);
 unsigned long get_inverse(unsigned long, unsigned long);
 unsigned long get_prime_number();
 Params* params_generator();
-int main();
 
 #endif
