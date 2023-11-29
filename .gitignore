@@ -6,3 +6,5 @@ id_rsa.pub
 id_rsa
 keygen
 a.out
+keys/*
+cmd/*
