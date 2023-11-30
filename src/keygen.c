@@ -41,14 +41,13 @@ void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int key_length) {
   } while (mpz_probab_prime_p(q, 50) < 1);
 
   mpz_mul(n, p, q);
+  mpz_sub_ui(p, p, 1);
+  mpz_sub_ui(q, q, 1);
+  mpz_mul(r, p, q);
 
   do {
     mpz_urandomb(e, state, key_length);
-  } while (mpz_probab_prime_p(e, 50) < 1);
+  } while (mpz_probab_prime_p(e, 50) < 1 || mpz_cmp_ui(e, 1) < 1); // 1 <= e < r; coprime(e, r);
 
-  mpz_sub_ui(p, p, 1);
-  mpz_sub_ui(q, q, 1);
-
-  mpz_mul(r, p, q);
   mpz_invert(d, e, r);
 }
