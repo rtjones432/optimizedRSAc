@@ -5,10 +5,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <time.h>
 int main(int argc, char *argv[]) {
   clock_t start, stop;
   // TODO: write timing functions for each
   mpz_t m, c, e, d, n;
+  mpz_init(m);
+  mpz_init(c);
+  mpz_init(e);
+  mpz_init(d);
+  mpz_init(n);
   unsigned long size_list[8] = {16, 32, 64, 128, 256, 512, 1024, 2048};
   gmp_randstate_t state;
   gmp_randinit_default(state);
@@ -17,28 +23,34 @@ int main(int argc, char *argv[]) {
     start = clock();
     keygen(n, e, d, size_list[i]);
     stop = clock();
-    printf("generated keys:");
-    mpz_out_str(stdout, 10, n);
-    mpz_out_str(stdout, 10, e);
-    mpz_out_str(stdout, 10, d);
+    // mpz_out_str(stdout, 10, n);
+    // mpz_out_str(stdout, 10, e);
+    // mpz_out_str(stdout, 10, d);
     printf("in ticks %ld\n", stop - start);
-
     mpz_urandomb(m, state, size_list[i]);
-    printf("generated random msg");
+    if (i == 0) {
+      start = clock();
+      lin_encrypt_block(e, m, c, n);
+      stop = clock();
+      printf("loop meathod clocks: %ld time: %ld\n", stop - start,
+             (stop - start) / CLOCKS_PER_SEC);
+    } else {
+      printf("loop meathod clocks: --- time: ---\n");
+    }
+
     start = clock();
-    lin_encrypt_block(e, m, &c, n);
+    log_encrypt_block(e, m, c, n);
     stop = clock();
-    printf("loop meathod took time %ld\n", stop - start);
+    printf("log meathod clocks %ld time %ld\n", stop - start,
+           (stop - start) / CLOCKS_PER_SEC);
 
     // start timer
-
+    start = clock();
+    gmp_encrypt_block(e, m, c, n);
     // stop timer
-    printf("loop meathod took time %ld\n", stop - start);
-
-    // start timer
-    lin_encrypt_block(e, m, &c, n);
-    // stop timer
-    printf("loop meathod took time %ld\n", stop - start);
+    stop = clock();
+    printf("gmp meathod clocks %ld time %ld\n", stop - start,
+           (stop - start) / CLOCKS_PER_SEC);
   }
   return EXIT_SUCCESS;
 }
