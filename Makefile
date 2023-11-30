@@ -20,12 +20,15 @@ rsa_example:
 	mkdir -p cmd
 	gcc -Wall -O3 src/rsa_example.c src/log_rsa.c -lgmp -o cmd/rsa_example
 
-clean: clean_file
+clean: clean_key clean_symbol
 	rm -f cmd/genkey
 	rm -f cmd/rsa_encrypt
 	rm -f cmd/rsa_decrypt
 	rm -f cmd/rsa_timing_test
 	rm -f cmd/rsa_example
 
-clean_file:
+clean_key:
 	rm -f id_rsa id_rsa.pub
+
+clean_symbol:
+	rm -rf cmd/*.dSYM
