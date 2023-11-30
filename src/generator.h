@@ -10,11 +10,11 @@ const int TEST_NUMBER = 10;
 const int MAX_TRIES = 100;
 
 typedef struct Params {
-    unsigned long p;
-    unsigned long q;
-    unsigned long n;
-    unsigned long e;
-    unsigned long d;
+  unsigned long p;
+  unsigned long q;
+  unsigned long n;
+  unsigned long e;
+  unsigned long d;
 } Params;
 
 bool is_prime(unsigned long, int);

@@ -32,16 +32,16 @@ int main(int argc, char *argv[]) {
       start = clock();
       lin_encrypt_block(e, m, c, n);
       stop = clock();
-      printf("loop meathod clocks: %ld time: %ld\n", stop - start,
+      printf("loop method clocks: %ld time: %ld\n", stop - start,
              (stop - start) / CLOCKS_PER_SEC);
     } else {
-      printf("loop meathod clocks: --- time: ---\n");
+      printf("loop method clocks: --- time: ---\n");
     }
 
     start = clock();
     log_encrypt_block(e, m, c, n);
     stop = clock();
-    printf("log meathod clocks %ld time %ld\n", stop - start,
+    printf("log method clocks %ld time %ld\n", stop - start,
            (stop - start) / CLOCKS_PER_SEC);
 
     // start timer
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     gmp_encrypt_block(e, m, c, n);
     // stop timer
     stop = clock();
-    printf("gmp meathod clocks %ld time %ld\n", stop - start,
+    printf("gmp method clocks %ld time %ld\n", stop - start,
            (stop - start) / CLOCKS_PER_SEC);
   }
   return EXIT_SUCCESS;

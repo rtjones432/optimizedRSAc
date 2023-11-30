@@ -22,7 +22,7 @@ void write_to_file(mpz_t n, mpz_t e, mpz_t d) {
   fclose(fptr);
 }
 
-void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int bit_length) {
+void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int key_length) {
   mpz_t p, q, r;
   mpz_init(p);
   mpz_init(q);
@@ -33,17 +33,17 @@ void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int bit_length) {
   gmp_randseed_ui(state, clock());
 
   do {
-    mpz_urandomb(p, state, bit_length);
+    mpz_urandomb(p, state, key_length);
   } while (mpz_probab_prime_p(p, 50) < 1);
 
   do {
-    mpz_urandomb(q, state, bit_length);
+    mpz_urandomb(q, state, key_length);
   } while (mpz_probab_prime_p(q, 50) < 1);
 
   mpz_mul(n, p, q);
 
   do {
-    mpz_urandomb(e, state, bit_length);
+    mpz_urandomb(e, state, key_length);
   } while (mpz_probab_prime_p(e, 50) < 1);
 
   mpz_sub_ui(p, p, 1);

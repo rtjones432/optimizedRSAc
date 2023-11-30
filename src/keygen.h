@@ -2,7 +2,7 @@
 #define KEYGEN_H
 #define PUBLIC_KEY_FILE "id_rsa.pub"
 #define PRIVATE_KEY_FILE "id_rsa"
-#define DEFAULT_BIT_LENGTH 2048
+#define DEFAULT_KEY_LENGTH 2048
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 void usage();
-void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int bit_length);
+void keygen(mpz_t n, mpz_t e, mpz_t d, unsigned int key_length);
 void write_to_file(mpz_t n, mpz_t e, mpz_t d);
 
 #endif
