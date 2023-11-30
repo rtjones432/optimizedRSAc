@@ -3,10 +3,10 @@
 
 // encrypts a single block
 void simple_encrypt_block(long e, long m, long *c, long n) {
-  *c = 0;
+  *c = 1;
 
   if (e & 1) {
-    *c += m;
+    *c *= m;
     *c = *c % n;
   }
 
